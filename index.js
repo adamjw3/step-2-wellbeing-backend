@@ -5,7 +5,6 @@ const cors = require("cors");
 const express = require("express");
 const nodemailer = require("nodemailer");
 const sgTransport = require("nodemailer-sendgrid-transport");
-const { check, validationResult } = require("express-validator");
 
 const app = express().use(cors());
 
@@ -19,17 +18,6 @@ const options = {
 };
 
 const client = nodemailer.createTransport(sgTransport(options));
-
-//const contactAddress = "step2wellbeing@gmail.com";
-//const contactAddress = "adam.wright90@yahoo.co.uk";
-
-/*const mailer = nodemailer.createTransport({
-  service: "Gmail",
-  auth: {
-    user: "adamjwright32@gmail.com",
-    pass: "Zeppelin32?",
-  },
-});*/
 
 app.post("/booking", function (req, res) {
   console.log("req", req);
@@ -49,8 +37,6 @@ app.post("/booking", function (req, res) {
   };
 
   client.sendMail(email, function (err, info) {
-    console.log("error", err);
-    console.log("info", info);
     if (err) {
       return res.status(500).send(err);
     } else {
